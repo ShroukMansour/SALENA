@@ -1,59 +1,59 @@
-
 import re
 import builtins
 import cv2
-from predictor import Predictor
-from predict_beam import get_best_caption
+# from salenabot.chatbot_module.predictor import Predictor
+# from salenabot.chatbot_module.predict_beam import get_best_caption
+from salenabot.recommendation_module.recommendation_system import get_advertisement
 import numpy as np
 
-def callingUser(caption):
+
+def calling_user(caption):
     pattern = "wearing .*"
     match = re.search(pattern, caption)
-    Match=match.group(0)
-    str = "hey what's up , you who are " + Match + " come and have fun with me. Hi my name is Salena \n How are you?"
+    Match = match.group(0)
+    str = "hey what's up , you who are " + Match + " come and have fun with me. My name is Salena \nHow are you?"
     return str
 
 
 # build dictionary holds all categories
 category = {"child": [
-    "your baby is so cute , Would you like to try something like this {}for him,I think it will make him happy"],
-            "woman": [
-                "you look very pretty, I think you will be prettier if you tried this {},Would you like to see it."],
-            "man": ["you look so smart, I think {} will suits you, Woulg yoyu like to see it"],
-            "old woman": [""],
-            "old man": [""]}
+    "your baby is so cute , Would you like to try something like this {} for him? I think it will make him happy"],
+    "woman": [
+        "you look very pretty, I think you will be prettier if you tried this {},Would you like to see it?"],
+    "man": ["you look so smart, I think {} will suits you, Would you like to see it"],
+    "old woman": [""],
+    "old man": [""]
+}
 
 
-
-def chatBot():
-    image="COCO_test2014_000000000063.jpg"
-    #caption = "a woman wearing red dress"  # call function model
-    model_weights_path="modified logs2/nep031-acc0.681-val_acc0.650.h5"
-    predictor = Predictor(model_weights_path, beam_size=3)
-    caption = get_best_caption(predictor, image)
-    #tag, link = getAdds(caption)
-    tag = "shambo"
+def chat_bot():
+    image = "COCO_test2014_000000000063.jpg"  # TODO: get image using API
+    model_weights_path = "modified logs2/nep031-acc0.681-val_acc0.650.h5"
+    # predictor = Predictor(model_weights_path, beam_size=3)  # TODO: call the model
+    # caption = get_best_caption(predictor, image)
+    caption = "a child wearing blue pants"
+    tag, link = get_advertisement(caption)
     cat_child = re.search("child", caption)
     cat_woman = re.search("woman", caption)
     cat_man = re.search("man", caption)
-    cat_oldWoman = re.search("old woman", caption)
-    cat_oldMen = re.search("old man", caption)
+    cat_old_woman = re.search("old woman", caption)
+    cat_old_men = re.search("old man", caption)
     key = ""
 
-    if (cat_child != None):
+    if cat_child is not None:
         key = "child"
-    elif (cat_woman != None):
+    elif cat_woman is not None:
         key = "woman"
-    elif (cat_man != None):
+    elif cat_man is not None:
         key = "man"
-    elif (cat_oldWoman != None):
+    elif cat_old_woman is not None:
         key = "old woman"
-    elif (cat_oldMen != None):
+    elif cat_old_men is not None:
         key = "old man"
-    description = callingUser(caption)
+    description = calling_user(caption)
     BOT = category[key]
-    BOT=BOT.__getitem__(0)
-    BOT=BOT.format(tag)
+    BOT = BOT.__getitem__(0)
+    BOT = BOT.format(tag)
 
     print(description)
     fine = builtins.input()
@@ -61,74 +61,71 @@ def chatBot():
     return tag
 
 
-def checkInput(input,tag):
-    if input=="Yes":
-        showAdd(tag)
-    elif input=="No":
-        request(tag)
+def check_input(input, tag):
+    if input == "Yes" or input == "yes":
+        show_advertisement(tag)
+    elif input == "No" or input == "no":
+        request_another_ad(tag)
 
-def showAdd(tag):
+
+def show_advertisement(tag):
     # show the add video
-    addRating="How did you find this {}".format(tag)+"? \n Give me rating from 1 to 5: \n 1  2  3  4  5"
-    print(addRating)
-    #Rating input
-    input=eval(builtins.input())
+    ad_rating = "How did you find this {}".format(tag) + "? \n Give it rating from 1 to 5: \n 1  2  3  4  5"
+    print(ad_rating)
+    # Rating input
+    input = eval(builtins.input())
 
-    f=open("save Adds Rating.txt","w")
-    f.write(tag+": "+str(input))
+    f = open("save Ads Rating.txt", "w")
+    f.write(tag + ": " + str(input))
     f.write('\n')
     f.close()
-    request(tag)
+    request_another_ad(tag)
 
-def request(tag):
+
+def request_another_ad(tag):
     # get name of another product by Rand except the prev add
-    add = "Would you like to see another product"
-    print(add)
-    # take input [yes or No ]to see another add
-    input=builtins.input(str())
-
-    #input = "NO"
-    if input=="No":
+    ad = "Would you like to see another product"
+    print(ad)
+    input = builtins.input(str())
+    if input == "No" or input == "no":
         Bye()
     else:
-        showAdd(tag)
+        show_advertisement(tag)
+
 
 def Bye():
-    print("Did you think i were helpful? \n Give me rating from 1 to 5: \n 1  2  3  4  5")
-    SalenaRating=eval(builtins.input())
+    print("Did you think i were helpful? \nRate me: \n1  2  3  4  5")
+    salena_rating = eval(builtins.input())
     f = open("Salena Rating.txt", "w")
-    f.write(str(SalenaRating))
+    f.write(str(salena_rating))
     f.write('\n')
     f.close()
-    print("Thanks :), Nice to meet you ,I hope to see you soon Byeeee")
+    if salena_rating < 3:
+        print("I hope you like me next time :), byee.")
+    else:
+        print("Thanks :), Nice to meet you ,I hope to see you soon Byeeee")
 
 
-def showVideo():
-    cap=cv2.VideoCapture('video.mp4')
-    if(cap.isOpened()==False):
+def show_video():
+    cap = cv2.VideoCapture('video.mp4')
+    if (cap.isOpened() == False):
         print("video error")
-    while(cap.isOpened()):
-        ret,frame=cap.read()
-        if ret==True:
-            cv2.imshow('frame',frame)
-            if cv2.waitkey(25)&0xFF==ord('q'):
-                #press q to exit
+    while (cap.isOpened()):
+        ret, frame = cap.read()
+        if ret == True:
+            cv2.imshow('frame', frame)
+            if cv2.waitkey(25) & 0xFF == ord('q'):
+                # press q to exit
                 break
         else:
             break
     cap.release()
     cv2.destroyAllWindows()
-    out=cv2.VideoWriter('outpy.avi',cv2.VideoWriter_fourcc('M','J','P','G'),(frame_width,frame_height))
+    out = cv2.VideoWriter('outpy.avi', cv2.VideoWriter_fourcc('M', 'J', 'P', 'G'), (frame_width, frame_height))
 
 
-
-
-
-
-
-
-tag=chatBot()
-#take input[yes or NO] for seeing add
-input=__builtin__.input(str())
-#input="yes"
-checkInput(input,tag)
+tag = chat_bot()
+# take input[yes or NO] for seeing add
+input = str(input())
+# input="yes"
+check_input(input, tag)
