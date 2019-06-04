@@ -3,7 +3,8 @@ from difflib import SequenceMatcher
 
 
 def get_advertisement(caption):
-    file_path = "../recommendation_module/videos_infos.json"
+    file_path = "salenabot/recommendation_module/videos_infos.json"
+    # file_path = "../recommendation_module/videos_infos.json"
     new_ration = 0
     old_ratio = 0
     title = " "

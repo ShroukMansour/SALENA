@@ -1,0 +1,158 @@
+/*background-image: linear-gradient(to right, #a997fa, #41c6fe);*/
+/*#c9a  #a974d0  #c9a*/
+/*#c9a  #a974d0  #c9a*/
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    overflow: hidden;
+}
+img#center-img {
+    display: block;
+    margin: 0 auto;
+}
+
+
+header {
+    border-bottom: 1px solid #41c6fe;
+    height: 70px;
+}
+
+
+header p {
+    font-size: 15px;
+    color: #777777;
+    padding-left: 5px;
+    line-height: 70px;
+    display: inline;
+}
+
+
+.divider {
+    position: fixed;
+    left: 25%;
+    top: 41%;
+    bottom: 25%;
+    border-left: 1px solid #41c6fe;
+    height: 20%;
+}
+
+
+#msg {
+    border: 1px solid #41c6fe;
+    border-radius: 35px;
+    min-height: 30px;
+    color: #41c6fe;
+    position: fixed;
+    bottom: 0;
+    padding: 20px;
+    width: 61%;
+    margin-bottom: 10px;
+    resize: none;
+    overflow: hidden;
+    font-size: 14px;
+    right: 170px;
+}
+
+input:focus {
+    outline: none !important;
+    color: #41c6fe;
+}
+
+button#send {
+    background-image: linear-gradient(to right, #a997fa, #41c6fe);
+    color: #fff;
+    border-radius: 35px;
+    width: 140px;
+    height: 45px;
+    font-size: 13pt;
+    margin-bottom: 43px;
+    transition: all ease-in-out 0.5s;
+    position: fixed;
+    bottom: -25px;
+    right: 20px;
+    border: none;
+}
+
+
+button:focus {
+    outline: none !important;
+}
+
+button:hover {
+    cursor: pointer;
+}
+
+ul#messages {
+    list-style-type: none;
+    margin-top:50px;
+    margin-bottom: 70px;
+    overflow-y: scroll;
+    max-height: 62%;
+    overflow-x: hidden;
+}
+
+ul li.bot-msg {
+    background-image: linear-gradient(to right, #41c6fe, #a997fa);
+    padding: 10px;
+    border-radius: 35px;
+    margin: 7px;
+    color: #fff;
+    max-width: 50%;
+    word-wrap: break-word;
+
+}
+
+ul li.user-msg {
+    background-image: linear-gradient(to right, #a997fa, #41c6fe);
+    padding: 10px;
+    border-radius: 35px;
+    margin: 7px;
+    color: #fff;
+    text-align: right;
+    max-width: 50%;
+    position: relative;
+    right: -50%;
+    word-wrap: break-word;
+}
+
+.fa-volume-up {
+    float: right;
+    cursor: pointer;
+}
+
+.fa-comment-alt {
+    float: right;
+    cursor: pointer;
+    margin-right: 7px;
+}
+
+.fa-microphone {
+    /*float: right;*/
+    cursor: pointer;
+    margin-bottom: 43px;
+    transition: all ease-in-out 0.5s;
+    position: fixed;
+    bottom: -12px;
+    right: 190px;
+    border: none;
+    color: #ccc
+}
+
+.fa-microphone:active {
+    color: #41c6fe;
+}
+
+video {
+    position: fixed;
+margin-left: -3%;
+border-radius: 47%;
+}
+
+#bot img {
+    width: 115%;
+    height: 100%;
+    margin-left: -37%;
+}

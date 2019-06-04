@@ -1,0 +1,60 @@
+<!doctype html>
+{% load static %}
+<head>
+    <title>Chat App</title>
+    <link rel="stylesheet" href="{% static 'bootstrap-4.3.1-dist/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+          integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+</head>
+<body onload="init();">
+<audio id="myAudioElement"></audio>
+<header>
+    <img src="{% static 'images/7.jpg' %}" width="20" height="20" alt="">
+    <p>Invite your friends using this url and the room name :)</p>
+</header>
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-3">
+            <ul id="bot">
+                <img src="{% static 'images/heart.png' %}" alt="" class="img-responsive">
+                <div class="user-screen">
+                    <video width=200 height=200 id="video" autoplay="autoplay"></video>
+                    <canvas id="myCanvas" width="200" height="200" style="display: none;"></canvas>
+                </div>
+            </ul>
+            <div class="divider"></div>
+
+        </div>
+
+        <div class="col-lg-9">
+            <ul id="messages">
+                <li class="bot-msg">
+                    Hi, i'am a friend
+                </li>
+                <li class="bot-msg">Hi, second one</li>
+                <li class="user-msg">Hi, it's my msg</li>
+                <li class="bot-msg">Hi, second one</li>
+                <li class="user-msg">Hi, it's my msg</li>
+                <li class="user-msg">Hi, it's my msg</li>
+            </ul>
+
+            <!--<textarea name="" id="msg" cols="30" rows="1" placeholder="Type message" style="position:fixed;bottom:0px;"></textarea>-->
+            <input type="text" id="msg">
+            <i class="fas fa-microphone" onmousedown="record();" onmouseup="stopRecording();"></i>
+            <button onclick="addUserMsg();" id="send">Send</button>
+        </div>
+    </div>
+
+</div>
+
+
+{% csrf_token %}
+<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+<script type="text/javascript" src={% static 'bootstrap-4.3.1-dist/js/bootstrap.js' %}></script>
+<script type="text/javascript" src={% static 'js/main.js' %}></script>
+
+</body>
+</html>
