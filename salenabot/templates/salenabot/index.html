@@ -11,8 +11,8 @@
 <body onload="init();">
 <audio id="myAudioElement"></audio>
 <header>
-    <img src="{% static 'images/7.jpg' %}" width="20" height="20" alt="">
-    <p>Invite your friends using this url and the room name :)</p>
+    <img src="{% static 'images/heart.png' %}" id="header-bot" width="20" height="20" alt="">
+    <p>Hi, I am Salena. I can recommend products to you :) </p>
 </header>
 
 <div class="container">
@@ -31,6 +31,7 @@
 
         <div class="col-lg-9">
             <ul id="messages">
+                <li class="user-msg">Hi, it's my msg</li>
                 <li class="bot-msg">
                     Hi, i'am a friend
                 </li>
