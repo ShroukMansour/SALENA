@@ -46,7 +46,7 @@ category = {"child": [
         "you look very pretty, I think you will be prettier if you tried this {},Would you like to see it?"],
     "man": ["you look so smart, I think {} will suits you, Would you like to see it"],
     "old woman": ["Wow, How can you look so young, i think you might find this {} very useful to you, Would you like to see it ?"],
-    "old man": [""]
+    "old man": ["you look so handsome, i think you might find this {} very useful to you, Would you like to see it ?"]
 }
 varity_words = {"woman":["lady", "girl","woman"], "man":["youth","man"],"old woman":["old woman"],"old man":["old woman"],
                 "child":["child","baby","boy"]}
