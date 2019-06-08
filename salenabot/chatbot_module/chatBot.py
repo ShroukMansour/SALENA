@@ -150,7 +150,7 @@ def Bye():
 
 
 def show_video(link):
-    cap = cv2.VideoCapture('E:/my mobile/DCIM/New folder (2)/walking.mp4')
+    cap = cv2.VideoCapture(link)
     if (cap.isOpened() == False):
         print("video error")
     while (cap.isOpened()):
