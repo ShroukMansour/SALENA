@@ -15,7 +15,7 @@ def calling_user(image):
     # predictor = Predictor(model_weights_path, beam_size=3)  # TODO: call the model
     # caption = get_best_caption(predictor, image)
 
-    caption = "a girl is a dog"
+    caption = "a girl is walking with a dog"
     pattern = "with .*"
     match = re.search(pattern, caption)
     if match!=None:
