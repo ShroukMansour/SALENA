@@ -5,16 +5,10 @@ import cv2
 # from salenabot.chatbot_module.predict_beam import get_best_caption
 #from SALENA.salenabot.captioning_module.model import get_scene_caption
 from salenabot.recommendation_module.recommendation import get_advertisement
-from colour import Color
 import json
 import numpy as np
 
-def is_color(color):
-    try:
-        Color(color)
-        return True
-    except:
-        return False
+
 def calling_user(image):
     # image = "COCO_test2014_000000000063.jpg"  # TODO: get image using API
     model_weights_path = "modified logs2/scene_model.h5"
@@ -31,10 +25,9 @@ def calling_user(image):
     elif match==None:
         verb_match=re.search(r"\b(\w+ing)\b",caption)
         if verb_match==None:
-            text = "hey what's up , you who are {} come and have fun with me. Hi my name is Salena \n How are you?"
-            print(text)
-            file = {"calling_caption": text}
-            json_file = json.dumps(file)
+            text = "hey {} ,come and have fun with me. Hi my name is Salena \n How are you?"
+            #file = {"calling_caption": text}
+            #json_file = json.dumps(file)
             return text
         verb=verb_match.group(0)
         pattern = str(verb) + ".*"
@@ -42,11 +35,9 @@ def calling_user(image):
         verb_calling=verb_calling.group(0)
         text = "hey what's up , you who are " + verb_calling + " come and have fun with me. Hi my name is Salena \n How are you?"
 
-
-    print(text)
-    file = {"calling_caption": text}
-    json_file = json.dumps(file)
-    return json_file
+    #file = {"calling_caption": text}
+    #json_file = json.dumps(file)
+    return text
 
 # build dictionary holds all categories
 category = {"child": [
@@ -98,9 +89,8 @@ def chat_bot(image):
     #    key = "old man"
     calling_caption=calling_user(caption)
     if re.search("{}",calling_caption)!=None:
-        print(type(calling_caption))
         calling_caption=calling_caption.format(key)
-        print(calling_caption)
+    print(calling_caption)
     BOT = category[key]
     BOT = BOT.__getitem__(0)
     BOT = BOT.format(tag)
@@ -113,29 +103,29 @@ def chat_bot(image):
     return tag,BOT,link
 
 
-def check_input(input, tag):
+def check_input(input, tag,link):
     if input == "Yes" or input == "yes":
-        show_advertisement(tag)
+        show_advertisement(tag,link)
     elif input == "No" or input == "no":
-        request_another_ad(tag)
+        request_another_ad(tag,link)
 
 
-def show_advertisement(tag):
+def show_advertisement(tag,link):
     # show the add video
-    show_video()
+    show_video(link)
     ad_rating = "How did you find this {}".format(tag) + "? \n Give it rating from 1 to 5: \n 1  2  3  4  5"
     print(ad_rating)
     # Rating input
     input = eval(builtins.input())
 
     f = open("save Ads Rating.txt", "w")
-    f.write(tag + ": " + str(input))
+    f.write(str(tag) + ": " + str(input))
     f.write('\n')
     f.close()
-    request_another_ad(tag)
+    request_another_ad(tag,link)
 
 
-def request_another_ad(tag):
+def request_another_ad(tag,link):
     # get name of another product by Rand except the prev add
     ad = "Would you like to see another product"
     print(ad)
@@ -143,7 +133,7 @@ def request_another_ad(tag):
     if input == "No" or input == "no":
         Bye()
     else:
-        show_advertisement(tag)
+        show_advertisement(tag,link)
 
 
 def Bye():
@@ -159,26 +149,28 @@ def Bye():
         print("Thanks :), Nice to meet you ,I hope to see you soon Byeeee")
 
 
-def show_video():
-    cap = cv2.VideoCapture('video.mp4')
+def show_video(link):
+    cap = cv2.VideoCapture('E:/my mobile/DCIM/New folder (2)/walking.mp4')
     if (cap.isOpened() == False):
         print("video error")
     while (cap.isOpened()):
         ret, frame = cap.read()
+        cv2.namedWindow("frame", 0)
+        cv2.resizeWindow("frame", 640, 480)
         if ret == True:
             cv2.imshow('frame', frame)
-            if cv2.waitkey(25) & 0xFF == ord('q'):
+            if cv2.waitKey(25) & 0xFF == ord('q'):
                 # press q to exit
                 break
         else:
             break
     cap.release()
     cv2.destroyAllWindows()
-    out = cv2.VideoWriter('outpy.avi', cv2.VideoWriter_fourcc('M', 'J', 'P', 'G'), (640, 480))#(frame_width, frame_height)
+    #out = cv2.VideoWriter('outpy.avi', cv2.VideoWriter_fourcc('M', 'J', 'P', 'G'), (640, 480))#(frame_width, frame_height)
 
 image = "COCO_test2014_000000000063.jpg"  # TODO: get image using API
-tag = chat_bot(image)
+tag,BOT,link = chat_bot(image)
 # take input[yes or NO] for seeing add
 input = str(input())
 # input="yes"
-check_input(input, tag)
+check_input(input, tag,link)

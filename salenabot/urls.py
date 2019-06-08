@@ -1,5 +1,4 @@
 from django.urls import path, include
-
 from . import views
 from salenabot.captioning_module.model_loader import load_model
 urlpatterns = [
