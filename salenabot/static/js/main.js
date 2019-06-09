@@ -195,7 +195,7 @@ $("#play-video").click(function () {
 });
 
 $("#dont-play-video").click(function () {
-    addUserMsg("No")
+    addUserMsg("No");
    changeBot("sad");
    startConversation();
 });
@@ -240,7 +240,8 @@ function welcome() {
 
 function startConversation() {
     sleep(10000).then(function () {
-        $("#messages").empty()
+        $("#messages").empty();
+        $(".play-1").remove();
         changeBot("heart");
         takeSnapshot();
     });

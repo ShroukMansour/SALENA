@@ -202,3 +202,7 @@ video {
     background-image: linear-gradient(to right, #a997fa, #41c6fe);
     color: #fff;
 }
+
+.yu2fvl-overlay {
+    opacity: 0.2;
+}
