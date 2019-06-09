@@ -30,8 +30,11 @@ function startWebcam() {
                     video.srcObject = stream;
                     boolWebCamAvailable = true;
                     startConversation();
+                    console.log("inside try")
                 } catch (error) {
                     video.src = window.URL.createObjectURL(stream);
+                    console.log("inside catch")
+
                 }
             }, (error) => {
                 console.log(error);
@@ -210,7 +213,8 @@ $("#answer-yes").click(function () {
         sayToUser(msg);
         return sleep(calcTimeToWait(msg));
     }).then(function () {
-        msg = `I think ${video_tag} will be good for you.`;
+        // msg = `I think ${video_tag} will be good for you.`;
+        msg = recommended_product_caption;
         sayToUser(msg);
         changeBot("poker");
         return sleep(calcTimeToWait(msg));
@@ -229,8 +233,9 @@ $("#answer-no").click(function(){
 
 
 function welcome() {
-    var msg = `Hi, I am Salena. I can recommend you a
-        product based on your appearance, Would you like to try me?`;
+    // var msg = `Hi, I am Salena. I can recommend you a
+    //     product based on your appearance, Would you like to try me?`;
+    var msg = calling_user_caption;
     sayToUser(msg).then(function () {
         return sleep(calcTimeToWait(msg));
     }).then(function () {
@@ -240,6 +245,7 @@ function welcome() {
 
 function startConversation() {
     sleep(10000).then(function () {
+        $("#messages").empty();
         $("#messages").empty();
         $(".play-1").remove();
         changeBot("heart");
