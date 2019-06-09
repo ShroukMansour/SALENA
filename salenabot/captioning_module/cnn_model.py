@@ -23,7 +23,7 @@ def create_nas_model():
 def load_nas_model():
     global nas_model
     if nas_model is None:
-        json_file = open('obj/nasnet_model.json', 'r')
+        json_file = open('salenabot/captioning_module/obj/nasnet_model.json', 'r')
         loaded_model_json = json_file.read()
         json_file.close()
         nas_model = model_from_json(loaded_model_json)

@@ -1,11 +1,13 @@
 import base64
 import re
 
+from PIL import Image
 from django import template
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from django.template import loader
 # Create your views here.
+from salenabot.captioning_module.scene_model import get_scene_caption
 from salenabot.chatbot_module.chatBot import get_calling_caption
 from salenabot.chatbot_module.chatBot import get_recommendation_data
 
@@ -41,8 +43,8 @@ def get_recommended_product_data(request):
     if request.method == 'POST':
         img_path = 'salenabot/static/images/captured_img.jpg'
         recommendation_caption, link, tag = get_recommendation_data(img_path)
-        data = {"recommendation_caption": recommendation_caption, "video_link": link, "video_tag": tag}
+        if recommendation_caption is not None:
+            data = {"recommendation_caption": recommendation_caption, "video_link": link, "video_tag": tag}
     return JsonResponse(data)
-
 
 

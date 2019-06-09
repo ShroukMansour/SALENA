@@ -5,7 +5,7 @@ import numpy as np
 
 
 def load_dictionaries():
-    with open("E:/SALENA/SALENA/salenabot/captioning_module/obj/dictionary", "rb") as f:
+    with open("salenabot/captioning_module/obj/dictionary", "rb") as f:
         dictionary = pickle.load(f)
         reversed_dictionary = pickle.load(f)
         return dictionary, reversed_dictionary

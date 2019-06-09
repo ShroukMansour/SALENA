@@ -41,7 +41,7 @@ class Predictor:
     def get_model(self, weights_only_path=None, method='json'):
         model = None
         if method == 'json':
-            json_file = open('E:/SALENA/SALENA/salenabot/captioning_module/obj/model_structure.json', 'r')
+            json_file = open('salenabot/captioning_module/obj/model_structure.json', 'r')
             loaded_model_json = json_file.read()
             json_file.close()
             model = model_from_json(loaded_model_json, custom_objects={"expand_dims": expand_dims})
