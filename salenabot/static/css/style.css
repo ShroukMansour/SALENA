@@ -31,7 +31,6 @@ header {
 header p {
     font-size: 15px;
     color: #777777;
-    padding-left: 5px;
     line-height: 70px;
     display: inline;
 }
@@ -166,3 +165,40 @@ video {
     margin-top: 10%;
 }
 
+/*******************************modals style*******************************/
+
+.modal-header .close{
+    margin-left: 0;
+    padding: 5px 5px 5px 0;
+}
+
+#modal-bot {
+    width: 170px;
+    height: 170px;
+    margin: 0 auto;
+}
+
+.modal-header, .modal-footer {
+    border: none;
+}
+.modal-footer {
+    display: block;
+    margin: 10px auto;
+}
+
+.modal-body{
+    text-align: center;
+    padding-top: 0;
+}
+
+.btn {
+    border: none;
+    border-radius: 35px;
+    width: 140px;
+    height: 45px;
+    font-size: 13pt;
+}
+.btn-primary {
+    background-image: linear-gradient(to right, #a997fa, #41c6fe);
+    color: #fff;
+}

@@ -2,16 +2,18 @@
 {% load static %}
 <head>
     <title>Chat App</title>
+    <link rel="shortcut icon" type="image/png" href={% static 'images/favicon.ico' %}/>
     <link rel="stylesheet" href="{% static 'bootstrap-4.3.1-dist/css/bootstrap.css' %}">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
           integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link href="{% static 'video-modal/src/jquery.yu2fvl.css' %}" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
 </head>
 <body onload="init();">
 <audio id="myAudioElement"></audio>
 <header>
-    <img src="{% static 'images/heart.png' %}" id="header-bot" width="20" height="20" alt="">
+    <img src="{% static 'images/face.png' %}" id="header-bot" width="40" height="40" alt="">
     <p>Hi, I am Salena. I can recommend products to you :) </p>
 </header>
 
@@ -19,7 +21,7 @@
     <div class="row">
         <div class="col-lg-3">
             <ul id="bot">
-                <img src="{% static 'images/heart.png' %}" alt="" class="img-responsive">
+                <img src="{% static 'images/heart.png' %}" alt="" class="img-responsive" id="bot-img">
                 <div class="user-screen">
                     <video width=200 height=200 id="video" autoplay="autoplay"></video>
                     <canvas id="myCanvas" width="200" height="200" style="display: none;"></canvas>
@@ -31,30 +33,70 @@
 
         <div class="col-lg-9">
             <ul id="messages">
-                <li class="user-msg">Hi, it's my msg</li>
-                <li class="bot-msg">
-                    Hi, i'am a friend
-                </li>
-                <li class="bot-msg">Hi, second one</li>
-                <li class="user-msg">Hi, it's my msg</li>
-                <li class="bot-msg">Hi, second one</li>
-                <li class="user-msg">Hi, it's my msg</li>
-                <li class="user-msg">Hi, it's my msg</li>
             </ul>
 
-            <!--<textarea name="" id="msg" cols="30" rows="1" placeholder="Type message" style="position:fixed;bottom:0px;"></textarea>-->
             <input type="text" id="msg">
-            <i class="fas fa-microphone" onmousedown="record();" onmouseup="stopRecording();"></i>
             <button onclick="addUserMsg();" id="send">Send</button>
         </div>
+
+
+        <!-- Modal -->
+        <div class="modal fade" id="request-answer-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <img src="{% static 'images/face.png' %}" id="modal-bot" alt="">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" id="modal-question">
+                        ...
+                    </div>
+                    <div class="modal-footer">
+                        <button id="answer-no"  type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                        <button id="answer-yes" type="button" class="btn btn-primary" data-dismiss="modal">Yes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="play-video-modal" tabindex="-1" role="dialog" aria-labelledby="videoModal"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <img src="{% static 'images/face.png' %}" id="modal-bot" alt="">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" id="modal-video-question">
+                        ...
+                    </div>
+                    <div class="modal-footer">
+                        <button id="dont-play-video"  type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 
 </div>
 
-
 {% csrf_token %}
+
+<script type="text/javascript" src= {% static 'mespeak/mespeak/mespeak.js' %}></script>
+
+<script>
+    meSpeak.loadConfig(`{% static 'mespeak/mespeak/mespeak_config.json' %}`);
+    meSpeak.loadVoice(`{% static  'mespeak/mespeak/voices/en/en.json'%}`);
+</script>
 <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
 <script type="text/javascript" src={% static 'bootstrap-4.3.1-dist/js/bootstrap.js' %}></script>
+<script type="text/javascript" src={% static 'video-modal/src/jquery.yu2fvl.js' %}></script>
 <script type="text/javascript" src={% static 'js/main.js' %}></script>
 
 </body>
