@@ -72,7 +72,7 @@ def get_recommendation_data(img_path):
         recommendation_caption = category[key]
         recommendation_caption = recommendation_caption.__getitem__(0)
         recommendation_caption = recommendation_caption.format(tag)
-        return tag, recommendation_caption, link
+        return recommendation_caption, link,tag
     else:
         return None, None, None
 
