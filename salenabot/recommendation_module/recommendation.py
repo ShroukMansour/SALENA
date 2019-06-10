@@ -1,27 +1,47 @@
+from __future__ import division
 import json
-from difflib import SequenceMatcher
+
+tokenize = lambda doc: doc.lower().split(" ")
+def jaccard_similarity(query, document):
+    intersection = set(query).intersection(set(document))
+    union = set(query).union(set(document))
+    return len(intersection) / len(union)
 
 
 def get_advertisement(caption):
     file_path = "salenabot/recommendation_module/videos_infos.json"
-    # file_path = "../recommendation_module/videos_infos.json"
-    new_ration = 0
-    old_ratio = 0
-    title = " "
-    link = " "
+    index=-1
+    maxValue=0.0
+    all_titles =[]
+    all_links =[]
+    all_documents=[]
+    title=" "
+    link=" "
     with open(file_path) as json_data:
         properties = json.load(json_data)
         for record in properties["Info"]:
-            tags = record['tags']
-            new_ration = SequenceMatcher(None, caption, tags).ratio()
-            if new_ration > old_ratio:
-                old_ratio = new_ration
-                title = record['title']
-                link = record['url']
-        if new_ration == 0:
+          txt=record['description']
+          all_titles+=[record['title']]
+          all_links+=[record['url']]
+          all_documents += [txt]
+          tokenized_documents = [tokenize(d) for d in all_documents]  # tokenized docs
+        caption_tokenized=tokenize(caption)
+        for i in tokenized_documents:
+            index+=1
+            if(jaccard_similarity(i,caption_tokenized)>maxValue):
+                print("here")
+                maxValue=jaccard_similarity(i,caption_tokenized)
+                title = all_titles[index]
+                link =all_links[index]
+        if maxValue == 0.0:
             title = "default advertisement"
             link = "https://www.youtube.com/watch?v=PZguUhAB_hI"
 
     return title, link
 
+
+
+#title,link=get_advertisement("skin")
+#print(title)
+#print(link)
 
