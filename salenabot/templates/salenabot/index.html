@@ -3,13 +3,13 @@
 <head>
     <title>Chat App</title>
     <link rel="shortcut icon" type="image/png" href={% static 'images/favicon.ico' %}/>
-    <link rel="stylesheet" href="{% static 'bootstrap-4.0.0-dist/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'fontawesome-free-5.9.0-web/css/all.css' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap-4.3.1-dist/css/bootstrap.css' %}">
     <link href="{% static 'video-modal/src/jquery.yu2fvl.css' %}" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
 </head>
 <body onload="init();">
-<audio id="myAudioElement"></audio>
 <header>
     <img src="{% static 'images/face.png' %}" id="header-bot" width="40" height="40" alt="">
     <p>Hi, I am Salena. I can recommend products to you :) </p>
@@ -22,7 +22,14 @@
                 <img src="{% static 'images/heart.png' %}" alt="" class="img-responsive" id="bot-img">
                 <div class="user-screen">
                     <video width=200 height=200 id="video" autoplay="autoplay"></video>
-                    <canvas id="myCanvas" width="200" height="200" style="display: none;"></canvas>
+                    <canvas id="myCanvas" width="500" height="500" style="display: none;"></canvas>
+                </div>
+                <div class="bot-rates">
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fas fa-star-half-alt"></i>
                 </div>
             </ul>
             <div class="divider"></div>
@@ -31,8 +38,8 @@
 
         <div class="col-lg-9">
             <ul id="messages">
-            </ul>
 
+            </ul>
             <input type="text" id="msg">
             <button onclick="addUserMsg();" id="send">Send</button>
         </div>
@@ -79,6 +86,33 @@
                 </div>
             </div>
         </div>
+        <div class="modal fade" id="rate-me-modal" tabindex="-1" role="dialog" aria-labelledby="videoModal"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <img src="{% static 'images/face.png' %}" id="modal-bot" alt="">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" id="modal-rateme-question">
+                        Would you rate me, please!
+                        <div class="rate-me">
+                            <i class="far fa-star star" id="star1"></i>
+                            <i class="far fa-star star" id="star2"></i>
+                            <i class="far fa-star star" id="star3"></i>
+                            <i class="far fa-star star" id="star4"></i>
+                            <i class="far fa-star star" id="star5"></i>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="dont-rate"  type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                        <button id="rate"  type="button" class="btn btn-primary" data-dismiss="modal">Rate</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
     </div>
 
@@ -92,10 +126,10 @@
     meSpeak.loadConfig(`{% static 'mespeak/mespeak/mespeak_config.json' %}`);
     meSpeak.loadVoice(`{% static  'mespeak/mespeak/voices/en/en.json'%}`);
 </script>
-<script src="https://code.jquery.com/jquery-3anch .1.0.min.js"></script>
-<script type="text/javascript" src={% static 'bootstrap-4.0.0-dist/js/bootstrap.js' %}></script>
+<script src={% static 'js/jquery-3.4.1.min.js' %}></script>
+<script type="text/javascript" src={% static 'bootstrap-4.3.1-dist/js/bootstrap.js' %}></script>
 <script type="text/javascript" src={% static 'video-modal/src/jquery.yu2fvl.js' %}></script>
+<script type="text/javascript" src={% static 'js/rating.js' %}></script>
 <script type="text/javascript" src={% static 'js/main.js' %}></script>
 
 </body>
-</html>

@@ -203,6 +203,19 @@ video {
     color: #fff;
 }
 
-.yu2fvl-overlay {
+.yu2fvl-overlay{
     opacity: 0.2;
+}
+
+.bot-rates {
+    display: block;
+    margin: 10%;
+    color: #ffcc36;
+}
+
+.rate-me {
+    display: block;
+}
+.star {
+    color: #ffcc36;
 }
