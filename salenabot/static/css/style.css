@@ -202,3 +202,20 @@ video {
     background-image: linear-gradient(to right, #a997fa, #41c6fe);
     color: #fff;
 }
+
+.yu2fvl-overlay{
+    opacity: 0.2;
+}
+
+.bot-rates {
+    display: block;
+    margin: 10%;
+    color: #ffcc36;
+}
+
+.rate-me {
+    display: block;
+}
+.star {
+    color: #ffcc36;
+}

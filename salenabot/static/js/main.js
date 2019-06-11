@@ -11,6 +11,7 @@ var calling_user_caption = "";
 var recommended_product_caption = "";
 var video_link = "";
 var video_tag = "";
+var video_duration = 0;
 
 function init() {
     canvas = document.getElementById("myCanvas");
@@ -29,7 +30,7 @@ function startWebcam() {
                 try {
                     video.srcObject = stream;
                     boolWebCamAvailable = true;
-                    startConversation();
+                    startNewConversation();
                 } catch (error) {
                     video.src = window.URL.createObjectURL(stream);
                 }
@@ -73,7 +74,7 @@ function get_calling_user_caption() {
             calling_user_caption = data["calling_caption"];
             if (calling_user_caption === "none") {
                 sleep(3000).then(function () {
-                   startConversation();
+                   startNewConversation();
                 });
             } else {
                 welcome();
@@ -94,6 +95,7 @@ function get_recommendation_data() {
             recommended_product_caption = data["recommendation_caption"];
             video_link = data["video_link"];
             video_tag = data["video_tag"];
+            video_duration = calcVideoDurationMS("0:15  ");
             console.log("get_recommendation_data", recommended_product_caption);
             console.log("link", video_link);
             console.log("tag", video_tag);
@@ -124,7 +126,16 @@ function addPlayVideoElements() {
     $("#play-video").click(function () {
         changeBot("whistle");
         addUserMsg("Play video");
-        sleep(12000).then(function(){startConversation()});  
+        sleep(video_duration + 2000).then(function(){
+            $('#play-video-modal').hide();
+            $('.modal-backdrop').hide();
+            $(".yu2fvl").remove();
+            $(".yu2fvl-overlay").remove();
+            sleep(3000).then(function(){
+                rateMeModal();
+                startNewConversation();
+            });
+        });  
     });
      `;
     sleep(2000).then(function () {
@@ -178,6 +189,10 @@ function calcTimeToWait(msg) {
     return (timeToWait) * 1000;
 }
 
+function calcVideoDurationMS(time) {
+    timeParts = time.split(":");
+    return (timeParts[0] * (60000)) + (timeParts[1] * 1000)
+}
 
 function requestAnswer(question) {
     $('#modal-question').html(`${question}`);
@@ -195,9 +210,9 @@ $("#play-video").click(function () {
 });
 
 $("#dont-play-video").click(function () {
-    addUserMsg("No")
+    addUserMsg("No");
    changeBot("sad");
-   startConversation();
+   startNewConversation();
 });
 
 $("#answer-yes").click(function () {
@@ -212,7 +227,7 @@ $("#answer-yes").click(function () {
     }).then(function () {
         msg = `I think ${video_tag} will be good for you.`;
         sayToUser(msg);
-        changeBot("poker");
+        changeBot("happy");
         return sleep(calcTimeToWait(msg));
     }).then(function () {
         requestPlayVideo("Do you want to see the video? you will like it ^_^");
@@ -224,7 +239,7 @@ $("#answer-no").click(function(){
     changeBot("sad");
     var msg = "I thought we will be friends, Bye";
     sayToUser(msg);
-    startConversation();
+    startNewConversation();
 });
 
 
@@ -238,9 +253,12 @@ function welcome() {
     })
 }
 
-function startConversation() {
+function startNewConversation() {
     sleep(10000).then(function () {
-        $("#messages").empty()
+        $("#messages").empty();
+        $('#request-answer-modal').hide();
+        $('#play-video-modal').hide();
+        $('.modal-backdrop').hide();
         changeBot("heart");
         takeSnapshot();
     });
