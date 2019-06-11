@@ -30,11 +30,8 @@ function startWebcam() {
                     video.srcObject = stream;
                     boolWebCamAvailable = true;
                     startConversation();
-                    console.log("inside try")
                 } catch (error) {
                     video.src = window.URL.createObjectURL(stream);
-                    console.log("inside catch")
-
                 }
             }, (error) => {
                 console.log(error);
