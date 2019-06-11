@@ -39,12 +39,12 @@ def get_calling_user_caption(request):
 
 
 def get_recommended_product_data(request):
-    data = {"recommendation_caption": "Do you want to see my recommended product for you", "video_link": 'https://www.youtube.com/watch?v=DDljNWP6b8E', "video_tag": 'This is Egypt'}
+    data = {"recommendation_caption": "Do you want to see my recommended product for you", "video_link": 'https://www.youtube.com/watch?v=DDljNWP6b8E', "video_tag": 'This is Egypt',"video_duration":'1:00'}
     if request.method == 'POST':
         img_path = 'salenabot/static/images/captured_img.jpg'
-        recommendation_caption, link, tag = get_recommendation_data(img_path)
+        recommendation_caption, link, tag,duration = get_recommendation_data(img_path)
         if recommendation_caption is not None:
-            data = {"recommendation_caption": recommendation_caption, "video_link": link, "video_tag": tag}
+            data = {"recommendation_caption": recommendation_caption, "video_link": link, "video_tag": tag,"video_duration":duration}
     return JsonResponse(data)
 
 

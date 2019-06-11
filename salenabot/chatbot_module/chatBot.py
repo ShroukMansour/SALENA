@@ -65,16 +65,16 @@ def get_calling_caption(image):
 def get_recommendation_data(img_path):
     caption = get_scene_caption(img_path)
     if caption is not None:
-        tag, link = get_advertisement(caption)
+        tag, link,duration = get_advertisement(caption)
         key = get_key(caption)
         if key == "":
             key = "person"
         recommendation_caption = category[key]
         recommendation_caption = recommendation_caption.__getitem__(0)
         recommendation_caption = recommendation_caption.format(tag)
-        return recommendation_caption, link,tag
+        return recommendation_caption, link,tag,duration
     else:
-        return None, None, None
+        return None, None, None,None
 
 # image = "COCO_test2014_000000000063.jpg"  # TODO: get image using API
 # tag,BOT,link = get_recommendation_data(image)

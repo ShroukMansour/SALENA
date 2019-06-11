@@ -15,14 +15,17 @@ def get_advertisement(caption):
     all_titles =[]
     all_links =[]
     all_documents=[]
+    all_durations=[]
     title=" "
     link=" "
+    duration=" "
     with open(file_path) as json_data:
         properties = json.load(json_data)
         for record in properties["Info"]:
           txt=record['description']
           all_titles+=[record['title']]
           all_links+=[record['url']]
+          all_durations+=[record['duration']]
           all_documents += [txt]
           tokenized_documents = [tokenize(d) for d in all_documents]  # tokenized docs
         caption_tokenized=tokenize(caption)
@@ -33,11 +36,13 @@ def get_advertisement(caption):
                 maxValue=jaccard_similarity(i,caption_tokenized)
                 title = all_titles[index]
                 link =all_links[index]
+                duration=all_durations[index]
         if maxValue == 0.0:
             title = "default advertisement"
             link = "https://www.youtube.com/watch?v=PZguUhAB_hI"
+            duration="2:09"
 
-    return title, link
+    return title, link,duration
 
 
 
