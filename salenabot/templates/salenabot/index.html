@@ -120,16 +120,11 @@
 
 {% csrf_token %}
 
-<script type="text/javascript" src= {% static 'mespeak/mespeak/mespeak.js' %}></script>
-
-<script>
-    meSpeak.loadConfig(`{% static 'mespeak/mespeak/mespeak_config.json' %}`);
-    meSpeak.loadVoice(`{% static  'mespeak/mespeak/voices/en/en.json'%}`);
-</script>
 <script src={% static 'js/jquery-3.4.1.min.js' %}></script>
 <script type="text/javascript" src={% static 'bootstrap-4.3.1-dist/js/bootstrap.js' %}></script>
 <script type="text/javascript" src={% static 'video-modal/src/jquery.yu2fvl.js' %}></script>
 <script type="text/javascript" src={% static 'js/rating.js' %}></script>
+<script type="text/javascript" src={% static 'js/speak.js' %}></script>
 <script type="text/javascript" src={% static 'js/main.js' %}></script>
 
 </body>

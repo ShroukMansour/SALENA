@@ -95,7 +95,7 @@ function get_recommendation_data() {
             recommended_product_caption = data["recommendation_caption"];
             video_link = data["video_link"];
             video_tag = data["video_tag"];
-            video_duration = calcVideoDurationMS("0:15  ");
+            video_duration = calcVideoDurationMS(data["video_duration"]);
             console.log("get_recommendation_data", recommended_product_caption);
             console.log("link", video_link);
             console.log("tag", video_tag);
@@ -133,7 +133,6 @@ function addPlayVideoElements() {
             $(".yu2fvl-overlay").remove();
             sleep(3000).then(function(){
                 rateMeModal();
-                startNewConversation();
             });
         });  
     });
@@ -156,7 +155,8 @@ function playMsg(text) {
 function sayToUser(msg) {
     var result = $.Deferred();
     addBotMsg(msg);
-    playMsg(msg);
+    // playMsg(msg);
+    speak(msg);
     result.resolve();
     return result.promise();
 }
@@ -185,7 +185,7 @@ var sleep = function (ms) {
 
 // calc waiting time based on msg size
 function calcTimeToWait(msg) {
-    var timeToWait = msg.split(" ").length/2;
+    var timeToWait = (msg.split(" ").length/200) * 100;
     return (timeToWait) * 1000;
 }
 
@@ -212,6 +212,7 @@ $("#play-video").click(function () {
 $("#dont-play-video").click(function () {
     addUserMsg("No");
    changeBot("sad");
+   sayToUser("Okay, see you soon");
    startNewConversation();
 });
 
@@ -223,7 +224,7 @@ $("#answer-yes").click(function () {
     sleep(500).then(function () {
         changeBot("think");
         sayToUser(msg);
-        return sleep(calcTimeToWait(msg));
+        return sleep(calcTimeToWait(msg) + 1000);
     }).then(function () {
         // msg = `I think ${video_tag} will be good for you.`;
         msg = recommended_product_caption;
@@ -234,7 +235,11 @@ $("#answer-yes").click(function () {
         requestPlayVideo("Do you want to see the video? you will like it ^_^");
     });
 });
-
+ana sam3a
+nti msh sam3a
+ps na sm3aki
+msh dysa
+kont p2olk rpna ykhleeki ^^
 $("#answer-no").click(function(){
     addUserMsg("No");
     changeBot("sad");
@@ -261,8 +266,11 @@ function startNewConversation() {
         $('#request-answer-modal').hide();
         $('#play-video-modal').hide();
         $('.modal-backdrop').hide();
+        $(".play-1").remove();
         changeBot("heart");
-        takeSnapshot();
+        sleep(3000).then(function () {
+            takeSnapshot();
+        });
     });
 }
 

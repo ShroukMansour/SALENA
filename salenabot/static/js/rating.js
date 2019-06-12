@@ -23,3 +23,20 @@ $(".star").click(function () {
     }
 });
 
+$("#rate").click(function () {
+    sleep(3000).then(function () {
+        changeBot("happy");
+        sayToUser("Thank you");
+        startNewConversation();
+    });
+});
+
+$("#dont-rate").click(function () {
+    sleep(1000).then(function () {
+        changeBot("sad");
+        sayToUser("Ok, see you soon");
+        sleep(3000).then(function () {
+            startNewConversation();
+        });
+    });
+});
