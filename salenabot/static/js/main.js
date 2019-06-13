@@ -13,6 +13,8 @@ var video_link = "";
 var video_tag = "";
 var video_duration = 0;
 
+var userResponsedForWelcome = false;
+
 function init() {
     canvas = document.getElementById("myCanvas");
     ctx = canvas.getContext('2d');
@@ -211,22 +213,29 @@ $("#play-video").click(function () {
 
 $("#dont-play-video").click(function () {
     addUserMsg("No");
-   changeBot("sad");
-   sayToUser("Okay, see you soon");
-   startNewConversation();
+    changeBot("sad");
+    sayToUser("Okay, see you soon");
+    startNewConversation();
 });
 
-$("#answer-yes").click(function () {
-    addUserMsg("Yes");
-    changeBot("happy");
-    addPlayVideoElements(); // so when requesting video, the button is ready
-    var msg = "Okay, let me think.";
-    sleep(500).then(function () {
+function talkYesClicked () {
+    userResponsedForWelcome = true;
+    sleep(1000).then(function () {
+        sayToUser("Hi, I'm Salena");
+        userName = "Shrouk";
+        changeBot("happy");
+        addPlayVideoElements(); // so when requesting video, the button is ready
+        return sleep(3000);
+    }).then(function () {
+        msg = `${userName}, I can recommend you a product based on your appearance`;
+        sayToUser(msg);
+        return sleep(calcTimeToWait(msg));
+    }).then(function () {
+        var msg = "Let me think";
         changeBot("think");
         sayToUser(msg);
         return sleep(calcTimeToWait(msg) + 1000);
     }).then(function () {
-        // msg = `I think ${video_tag} will be good for you.`;
         msg = recommended_product_caption;
         sayToUser(msg);
         changeBot("happy");
@@ -234,40 +243,53 @@ $("#answer-yes").click(function () {
     }).then(function () {
         requestPlayVideo("Do you want to see the video? you will like it ^_^");
     });
-});
-ana sam3a
-nti msh sam3a
-ps na sm3aki
-msh dysa
-kont p2olk rpna ykhleeki ^^
-$("#answer-no").click(function(){
-    addUserMsg("No");
-    changeBot("sad");
-    var msg = "I thought we will be friends, Bye";
-    sayToUser(msg);
-    startNewConversation();
-});
+}
 
+function openWelcomeModal() {
+    $("#welcome-page-modal").modal();
+}
 
 function welcome() {
-    // var msg = `Hi, I am Salena. I can recommend you a
-    //     product based on your appearance, Would you like to try me?`;
     var msg = calling_user_caption;
-    sayToUser(msg).then(function () {
+    $(".bot-msgs ul").append(`<li class="bot-msg calling-user-caption">${msg}</li>`);
+    speak(msg);
+    sleep(calcTimeToWait(msg)).then(function () {
+        msg = "Do you want to talk with me ";
+        $(".bot-msgs ul").append(`<li class="bot-msg">${msg}</li>`);
+        speak(msg);
         return sleep(calcTimeToWait(msg));
     }).then(function () {
-        requestAnswer("Would you like to try me? I'm sure you will like me :) ");
-    })
+        $(".user-welcome-respone").append(`<button id="talk-no" onclick="talkNoClicked()" type="button" class="btn btn-secondary">No</button>
+                        <button id="talk-yes" onclick="talkYesClicked()" type="button" class="btn btn-primary" data-dismiss="modal">Ok, let's
+                            talk
+                        </button>`);
+        sleep(10000).then(function () {
+            if (!userResponsedForWelcome) {
+                startNewConversation();
+            }
+        });
+    });
+}
+
+
+function talkNoClicked() {
+    userResponsedForWelcome = true;
+    startNewConversation();
 }
 
 function startNewConversation() {
-    sleep(10000).then(function () {
+
+    sleep(20000).then(function () {
         $("#messages").empty();
         $('#request-answer-modal').hide();
         $('#play-video-modal').hide();
         $('.modal-backdrop').hide();
         $(".play-1").remove();
+        $("#welcome-page-modal ul").empty();
+        $(".user-welcome-respone").empty();
+        userResponsedForWelcome = false;
         changeBot("heart");
+        openWelcomeModal();
         sleep(3000).then(function () {
             takeSnapshot();
         });

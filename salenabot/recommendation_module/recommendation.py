@@ -15,7 +15,7 @@ def cosine_similarity(v1,v2):
     return sumxy/math.sqrt(sumxx*sumyy)
 # in Scikit-Learn
 def get_advertisement(caption):
-    file_path = "E:/FCI/GP/recommendation_system/videos_infos.json"
+    file_path = "salenabot/recommendation_module/videos_infos.json"
     index = -1
     maxValue = 0.0
     all_durations= []

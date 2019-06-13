@@ -219,3 +219,65 @@ video {
 .star {
     color: #ffcc36;
 }
+
+#welcome-bot-img {
+    height: 748px;
+}
+
+#welcome-page-modal {
+    overflow: hidden;
+}
+#welcome-page-modal .modal-dialog {
+    max-width: 100%;
+}
+
+#welcome-page-modal .modal-content {
+    border: none;
+}
+#welcome-page-modal .modal-body {
+    position: relative;
+    bottom: 29px;
+    background-image: linear-gradient(to right, #a997fa , #41c6fe);
+}
+
+#welcome-page-modal ul {
+    list-style-type: none;
+}
+#welcome-page-modal .bot-msg{
+    background-image: linear-gradient(to right, #41c6fe, #a997fa);
+    padding: 10px;
+    border-radius: 35px;
+    margin: 7px;
+    word-wrap: break-word;
+    position: relative;
+    max-width: 96%;
+    background: #fff;
+    color: #777;
+    opacity: 0.9;
+}
+#welcome-page-modal .bot-msgs {
+    position: relative;
+    float: right;
+    width: 45%;
+    top: 25%;
+    right: 78px;
+    font-size: 20px;
+}
+
+#welcome-page-modal .btn {
+    border: none;
+    border-radius: 35px;
+    width: 124px;
+    height: 37px;
+    font-size: 13pt;
+}
+#welcome-page-modal .btn-primary, #welcome-page-modal .btn-primary:hover {
+    background-image: linear-gradient(to right, #2b9ecf, #a997fa);
+    color: #fff;
+}
+
+#welcome-page-modal .user-welcome-respone {
+    position: relative;
+    left: 31%;
+    top: 30px;
+}
