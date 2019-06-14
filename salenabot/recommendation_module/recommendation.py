@@ -38,7 +38,6 @@ def get_advertisement(caption):
         index+=1
         similarity = cosine_similarity(sklearn_representation.toarray()[i],sklearn_representation.toarray()[captionIndex])
         if(similarity>maxValue):
-            print("here")
             maxValue=similarity
             title = all_titles[index]
             link =all_links[index]

@@ -51,12 +51,18 @@ def get_calling_caption(image):
                 calling_user_caption = "hey {} ,come and talk with me."
                 key = get_key(caption)
                 calling_user_caption = calling_user_caption.format(key)
+                calling_user_caption=re.sub("his","your",calling_user_caption)
+                calling_user_caption = re.sub("her", "your", calling_user_caption)
+                calling_user_caption = re.sub("mirror", "camera", calling_user_caption)
                 return calling_user_caption
             verb = verb_match.group(0)
             pattern = str(verb) + ".*"
             verb_calling = re.search(pattern, caption)
             verb_calling = verb_calling.group(0)
             calling_user_caption = "hey what's up , you who are " + verb_calling + "come and talk with me."
+            calling_user_caption = re.sub("his", "your", calling_user_caption)
+            calling_user_caption = re.sub("her", "your", calling_user_caption)
+            calling_user_caption = re.sub("mirror", "camera", calling_user_caption)
         return calling_user_caption
     else:
         return "none"

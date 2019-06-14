@@ -218,6 +218,54 @@ $("#dont-play-video").click(function () {
     startNewConversation();
 });
 
+$("#answer-yes").click(function () {
+    addUserMsg("Fine");
+    changeBot("happy");
+    sleep(500).then(function () {
+        var msg = "That's great.";
+        changeBot("happy");
+        sayToUser(msg);
+        return sleep(calcTimeToWait(msg))
+    }).then(function () {
+        var msg = "Let me think of something that will make you happier.";
+        changeBot("think");
+        sayToUser(msg);
+        return sleep(calcTimeToWait(msg) + 1000);
+    }).then(function () {
+        // msg = `I think ${video_tag} will be good for you.`;
+        msg = recommended_product_caption;
+        sayToUser(msg);
+        changeBot("happy");
+        return sleep(calcTimeToWait(msg));
+    }).then(function () {
+        requestPlayVideo("Do you want to see the video? you will like it ^_^");
+    });
+});
+
+$("#answer-no").click(function(){
+    addUserMsg("I'm not fine");
+    changeBot("sad");
+    sleep(500).then(function () {
+        var msg = "Oh, why?.";
+        changeBot("sad");
+        sayToUser(msg);
+        return sleep(calcTimeToWait(msg))
+    }).then(function () {
+        var msg = "Ok. let me think of something that can improve your mode.";
+        changeBot("think");
+        sayToUser(msg);
+        return sleep(calcTimeToWait(msg) + 1000);
+    }).then(function () {
+        // msg = `I think ${video_tag} will be good for you.`;
+        msg = recommended_product_caption;
+        sayToUser(msg);
+        changeBot("happy");
+        return sleep(calcTimeToWait(msg));
+    }).then(function () {
+        requestPlayVideo("Do you want to see the video? you will like it ^_^");
+    });
+});
+
 function talkYesClicked () {
     userResponsedForWelcome = true;
     sleep(1000).then(function () {
@@ -227,22 +275,27 @@ function talkYesClicked () {
         addPlayVideoElements(); // so when requesting video, the button is ready
         return sleep(3000);
     }).then(function () {
-        msg = `${userName}, I can recommend you a product based on your appearance`;
+        // msg = `${userName}, I can recommend you a product based on your appearance`;
+        msg = "How are you?";
         sayToUser(msg);
         return sleep(calcTimeToWait(msg));
     }).then(function () {
-        var msg = "Let me think";
-        changeBot("think");
-        sayToUser(msg);
-        return sleep(calcTimeToWait(msg) + 1000);
-    }).then(function () {
-        msg = recommended_product_caption;
-        sayToUser(msg);
-        changeBot("happy");
-        return sleep(calcTimeToWait(msg));
-    }).then(function () {
-        requestPlayVideo("Do you want to see the video? you will like it ^_^");
+        requestAnswer("Are you well?");
     });
+    //     return sleep(calcTimeToWait(msg));
+    // }).then(function () {
+    //     var msg = "Let me think";
+    //     changeBot("think");
+    //     sayToUser(msg);
+    //     return sleep(calcTimeToWait(msg) + 1000);
+    // }).then(function () {
+    //     msg = recommended_product_caption;
+    //     sayToUser(msg);
+    //     changeBot("happy");
+    //     return sleep(calcTimeToWait(msg));
+    // }).then(function () {
+    //     requestPlayVideo("Do you want to see the video? you will like it ^_^");
+    // });
 }
 
 function openWelcomeModal() {
@@ -254,7 +307,7 @@ function welcome() {
     $(".bot-msgs ul").append(`<li class="bot-msg calling-user-caption">${msg}</li>`);
     speak(msg);
     sleep(calcTimeToWait(msg)).then(function () {
-        msg = "Do you want to talk with me ";
+        msg = "Do you want to talk with me? ";
         $(".bot-msgs ul").append(`<li class="bot-msg">${msg}</li>`);
         speak(msg);
         return sleep(calcTimeToWait(msg));
@@ -278,7 +331,6 @@ function talkNoClicked() {
 }
 
 function startNewConversation() {
-
     sleep(20000).then(function () {
         $("#messages").empty();
         $('#request-answer-modal').hide();

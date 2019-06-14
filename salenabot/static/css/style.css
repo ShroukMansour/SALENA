@@ -256,7 +256,7 @@ video {
     opacity: 0.9;
 }
 #welcome-page-modal .bot-msgs {
-    position: relative;
+    position: sticky;
     float: right;
     width: 45%;
     top: 25%;
@@ -280,4 +280,24 @@ video {
     position: relative;
     left: 31%;
     top: 30px;
+}
+
+@media (max-width: 1600px) {
+    ul#messages {
+        max-width: 87%;
+        margin-left: 10%;
+    }
+    .divider {
+        position: fixed;
+        left: 29%;
+        top: 41%;
+        bottom: 25%;
+        border-left: 1px solid #41c6fe;
+        height: 20%;
+    }
+    #bot  {
+       position: relative;
+    bottom: 14%;
+    left: 33%;
+    }
 }

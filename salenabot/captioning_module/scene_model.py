@@ -34,7 +34,7 @@ def get_scene_caption(image_path):
         person = loader.yolo.crop_person(image)
 
     if person is not None:
-        person.show()
+        # person.show()
         K.set_session(scene_session)
         with scene_graph.as_default():
             caption = get_best_caption(loader.predictor, person)
